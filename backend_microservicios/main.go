@@ -12,9 +12,10 @@ import (
 )
 
 func main() {
+	// Intentar cargar .env pero no fallar si no existe (para Docker)
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatalf("Error loading .env file")
+		log.Printf("Error loading .env file")
 	}
 
 	r := gin.Default()

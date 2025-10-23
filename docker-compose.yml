@@ -2,8 +2,6 @@
 # Proyecto creado por Jesús Imanol Castillo Avendaño
 # Sistema de Microservicios con Frontend (React), Backend (Go) y Base de Datos (MySQL)
 
-version: '3.8'
-
 services:
   # Servicio de Base de Datos MySQL
   castillo_mysql:
@@ -51,7 +49,7 @@ services:
     networks:
       - castillo_network
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/post_couples", "||", "exit", "1"]
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3000/post_couples || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3

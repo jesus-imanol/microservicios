@@ -61,7 +61,7 @@ services:
       context: ./frontend_microservicios
       dockerfile: Dockerfile
       args:
-        - VITE_API_URL=http://localhost:8000
+        - VITE_API_URL=http://54.152.217.38:8000
     container_name: jesus_frontend_container
     restart: always
     ports:

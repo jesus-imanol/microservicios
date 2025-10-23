@@ -4,8 +4,9 @@
 # Archivos de entorno con credenciales
 .env
 .env.local
-.env.production
-*.env
+.env.development
+.env.test
+# Nota: .env.production NO está ignorado porque contiene configuración de deployment público
 
 # Archivos de Docker con datos sensibles
 docker-compose.override.yml

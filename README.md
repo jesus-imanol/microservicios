@@ -19,6 +19,8 @@ Sistema de microservicios que implementa una aplicación web completa con:
 - **Backend**: API REST en Go (Gin Framework)
 - **Base de Datos**: MySQL 8.0 con persistencia
 
+> 📊 **Ver diagramas detallados**: Consulta [DIAGRAMAS.md](./DIAGRAMAS.md) para arquitectura completa y flujos de datos.
+
 ## 🏗️ Arquitectura
 
 ```

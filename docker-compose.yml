@@ -1,0 +1,89 @@
+# Docker Compose para Microservicios
+# Proyecto creado por Jesús Imanol Castillo Avendaño
+# Sistema de Microservicios con Frontend (React), Backend (Go) y Base de Datos (MySQL)
+
+version: '3.8'
+
+services:
+  # Servicio de Base de Datos MySQL
+  castillo_mysql:
+    image: mysql:8.0
+    container_name: castillo_mysql_container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password_secure_2025
+      MYSQL_DATABASE: castillo_db
+      MYSQL_USER: jesus_user
+      MYSQL_PASSWORD: jesus_password_secure_2025
+    ports:
+      - "3306:3306"
+    volumes:
+      # Volumen nombrado para persistencia de datos
+      - castillo_mysql_data:/var/lib/mysql
+      # Script de inicialización
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - castillo_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "jesus_user", "-pjesus_password_secure_2025"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  # Servicio Backend (API Go)
+  avendano_backend:
+    build:
+      context: ./backend_microservicios
+      dockerfile: Dockerfile
+    container_name: avendano_backend_container
+    restart: always
+    environment:
+      DB_HOST: castillo_mysql
+      DB_USER: jesus_user
+      DB_PASS: jesus_password_secure_2025
+      DB_SCHEMA: castillo_db
+    ports:
+      - "8000:3000"
+    depends_on:
+      castillo_mysql:
+        condition: service_healthy
+    networks:
+      - castillo_network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/post_couples", "||", "exit", "1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Servicio Frontend (React + Vite)
+  jesus_frontend:
+    build:
+      context: ./frontend_microservicios
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=http://localhost:8000
+    container_name: jesus_frontend_container
+    restart: always
+    ports:
+      - "80:3000"
+    depends_on:
+      avendano_backend:
+        condition: service_healthy
+    networks:
+      - castillo_network
+    environment:
+      - NODE_ENV=production
+
+# Redes
+networks:
+  castillo_network:
+    driver: bridge
+    name: castillo_network
+
+# Volúmenes nombrados
+volumes:
+  castillo_mysql_data:
+    name: castillo_mysql_data
+    driver: local

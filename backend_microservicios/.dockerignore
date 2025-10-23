@@ -1,0 +1,13 @@
+# Ignorar archivos innecesarios en la imagen Docker
+node_modules
+.git
+.gitignore
+*.md
+.env.local
+.vscode
+.idea
+*.log
+tmp/
+temp/
+dist/
+build/

@@ -1,0 +1,46 @@
+import axios from 'axios';
+
+// Configuración base de axios
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+
+export const apiClient = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  timeout: 10000, // 10 segundos
+});
+
+// Interceptor para requests (agregar tokens, logs, etc.)
+apiClient.interceptors.request.use(
+  (config) => {
+    // Aquí puedes agregar tokens de autenticación si los necesitas
+    // const token = localStorage.getItem('token');
+    // if (token) {
+    //   config.headers.Authorization = `Bearer ${token}`;
+    // }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// Interceptor para responses (manejo de errores globales)
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    // Manejo de errores globales
+    if (error.response) {
+      // El servidor respondió con un código de estado fuera del rango 2xx
+      console.error('Error de respuesta:', error.response.data);
+    } else if (error.request) {
+      // La petición fue hecha pero no hubo respuesta
+      console.error('Error de red:', error.message);
+    } else {
+      // Algo pasó al configurar la petición
+      console.error('Error:', error.message);
+    }
+    return Promise.reject(error);
+  }
+);

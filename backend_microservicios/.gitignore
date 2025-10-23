@@ -1,0 +1,42 @@
+# Archivos de entorno (contienen credenciales)
+.env
+.env.local
+.env.production
+.env.docker
+
+# Binarios y archivos compilados de Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+main
+
+# Archivos de test y cobertura
+*.test
+*.out
+coverage.txt
+coverage.html
+
+# Dependencias de Go (estos SÍ deben estar en el repositorio)
+# go.mod
+# go.sum
+
+# Directorios de IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Archivos temporales
+tmp/
+temp/
+.DS_Store
+
+# Build artifacts
+build/
+dist/

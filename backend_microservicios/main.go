@@ -1,6 +1,7 @@
 package main
 
 import (
+	"backend_microservicios/src/personal/controllers"
 	"backend_microservicios/src/post_couples/infrastructure/adapters"
 	"backend_microservicios/src/post_couples/infrastructure/dependencies"
 	"log"
@@ -35,6 +36,10 @@ func main() {
 		panic(err)
 	}
 	dependencies.InitPostCouplesDependencies(ps, r)
+
+	// Endpoint personal con apellido que retorna nombre completo
+	personalController := controllers.NewPersonalInfoController()
+	r.GET("/avendano", personalController.GetFullName)
 
 	if err := r.Run(":3000"); err != nil {
 		panic(err)

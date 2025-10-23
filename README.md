@@ -1,4 +1,15 @@
-# Proyecto de Microservicios con Docker Compose
+# Proyecto de Microservicios con Do### 2. avendano_backend (API REST)
+- **Tecnología**: Go 1.23.4 con Gin Framework
+- **Puerto**: 8000 (interno: 3000)
+- **Endpoints principales**:
+  - `GET /post_couples` - Obtener todos los posts
+  - `GET /post_couples/tag/:tag` - Buscar por etiqueta
+  - `POST /post_couples` - Crear post
+  - `PUT /post_couples/:id` - Actualizar post
+  - `PATCH /post_couples/:id/like` - Incrementar me gusta
+  - `DELETE /post_couples/:id` - Eliminar post
+  - **`GET /avendano`** - Endpoint personal que retorna el nombre completo del creador
+- **Dependencias**: Depende de `castillo_mysql`e
 **Creado por: Jesús Imanol Castillo Avendaño**
 
 ## 📋 Descripción del Proyecto
